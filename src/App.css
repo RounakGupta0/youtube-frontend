@@ -1,0 +1,809 @@
+/* ==========================================================================
+   SBS TUBE - LIGHT THEME SEQUENTIAL CSS
+   ========================================================================== */
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  background-color: #f9f9f9;
+  color: #0f0f0f;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Navbar Component */
+.navbar {
+  min-height: 10vh;
+  width: 100%;
+  background-color: #0f0f0f;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.navLogo-wrapper {
+  width: 30%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+}
+
+.logo-text {
+  color: #eeeeee;
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo {
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 900;
+  display: inline-block;
+}
+
+.link-wrapper {
+  width: 70%;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 8px 20px;
+}
+
+.link-elements {
+  text-decoration: none;
+  padding: 8px 14px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.link-elements:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.logout {
+  color: #ff4d4d;
+}
+
+.logout:hover {
+  background-color: #ff0000;
+  color: #ffffff;
+  border-radius: 6px;
+}
+
+/* Main Content Body */
+.content-body {
+  min-height: calc(100vh - 10vh);
+  width: 100%;
+}
+
+/* Home Page Sequential Video Feed */
+.home-wrapper {
+  min-height: calc(100vh - 10vh);
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 24px 16px;
+}
+
+.homeVideo-wrapper {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.homeVideo-card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 14px;
+  gap: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.homeVideo-card:hover {
+  background-color: #f2f7fd;
+  border-color: #b3d7ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.thumbnail-wrapper {
+  width: 320px;
+  min-width: 240px;
+  max-width: 360px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-left: 0;
+  background-color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.homeVideo-card:hover .thumbnail {
+  transform: scale(1.03);
+}
+
+.homeVideoCard-content {
+  flex: 1;
+  padding: 2px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.homeVideoCard-content h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0f0f0f;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.homeVideoCard-description {
+  font-size: 0.88rem;
+  color: #606060;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 2.8em;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.homeVideoCard-description * {
+  font-size: inherit !important;
+  font-weight: normal !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline !important;
+  word-break: break-word !important;
+}
+
+.homeVideoCard-description img,
+.homeVideoCard-description video,
+.homeVideoCard-description iframe {
+  display: none !important;
+}
+
+.homeVideoCardContent-profile {
+  display: flex;
+  height: auto;
+  width: 100%;
+  gap: 10px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.homeVideoCardContent-profile img {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.homeVideoCard-channelName {
+  font-size: 0.9rem;
+  color: #0f0f0f;
+  font-weight: 600;
+}
+
+.homeVideoCard-category {
+  background-color: teal;
+  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffffff !important;
+}
+
+.homeVideoCard-content>p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #212121;
+}
+
+/* Authentication Forms (Login / Signup) */
+.authForm-wrapper {
+  min-height: calc(100vh - 10vh);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 16px;
+  background-color: #f9f9f9;
+}
+
+.authForm {
+  min-height: 400px;
+  width: min(440px, 100%);
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 24px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  gap: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.authForm h2,
+.form-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f0f0f;
+  text-align: center;
+}
+
+.form-input {
+  padding: 12px 16px;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #cccccc;
+  outline: none;
+  color: #0f0f0f;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:hover {
+  background-color: #ffffff;
+  border-color: #999999;
+}
+
+.form-input:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.form-input::placeholder {
+  color: #717171;
+}
+
+select.form-input option {
+  background: #ffffff;
+  color: #0f0f0f;
+}
+
+textarea.form-input {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.submit-btn {
+  padding: 12px 20px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: #ff0000;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.submit-btn:hover {
+  background-color: #cc0000;
+}
+
+.submit-btn:active {
+  transform: scale(0.99);
+}
+
+.login-link {
+  text-decoration: none;
+  padding-top: 4px;
+  color: #065fd4;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Upload Video Form */
+.hideUpload-content {
+  display: none;
+}
+
+.uploadForm {
+  min-height: auto !important;
+  width: min(680px, 100%) !important;
+}
+
+.video-uploader,
+.thumbnail-uploader {
+  width: 100%;
+  border: 1px dashed #cccccc;
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.video-uploader p {
+  font-size: 15px;
+  color: #0f0f0f;
+}
+
+.video-uploader button,
+.thumbnail-uploader button {
+  width: auto;
+  min-width: max-content;
+  height: 40px;
+  padding: 0 16px;
+  outline: none;
+  border: 1px solid #cccccc;
+  background-color: #efefef;
+  color: #0f0f0f;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.video-uploader button:hover,
+.thumbnail-uploader button:hover {
+  background-color: #e2e2e2;
+  transform: scale(1.02);
+}
+
+.thumbnail-uploader {
+  height: auto;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.thumbnail-img {
+  width: min(260px, 100%);
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+/* Description Editor (React Quill) */
+.description-editor {
+  padding: 0 !important;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.description-editor .ql-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.description-editor .ql-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  min-height: 100px;
+}
+
+/* Watch Video Page */
+.vide-wrapper {
+  min-height: calc(100vh - 10vh);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.videoContent-wrapper {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.videoContent {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.video-player {
+  height: auto;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 0;
+  border-radius: 12px;
+  background-color: #000000;
+}
+
+.video-title {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f0f0f;
+  line-height: 1.3;
+}
+
+.videoContent>p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #303030;
+  background-color: #f2f2f2;
+  padding: 6px 12px;
+  border-radius: 8px;
+  width: fit-content;
+}
+
+.channel-info--wrapper {
+  height: auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.channel-info {
+  height: auto;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.channel-pic {
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.channel-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.channelInfo-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f0f0f;
+}
+
+.channelInfo-subCount {
+  font-size: 0.85rem;
+  color: #606060;
+}
+
+.like-dislike-wrapper {
+  height: auto;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.like-dislike {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.subscribe-btn {
+  padding: 9px 20px;
+  background-color: #f11919;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.subscribe-btn:hover {
+  background-color: #cc0000;
+}
+
+.subscribe-btn:active {
+  transform: scale(0.96);
+}
+
+.unsubscribe-btn {
+  background-color: grey !important;
+  /* color: #000000 !important; */
+}
+
+.unsubscribe-btn:hover {
+  background-color: #606060 !important;
+}
+
+.videoPlayer-description {
+  background-color: #f2f2f2;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 4px;
+  color: #0f0f0f;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  border: 1px solid #e5e5e5;
+  word-break: break-word;
+}
+
+.videoPlayer-description p {
+  margin-bottom: 8px;
+}
+
+.videoPlayer-description p:last-child {
+  margin-bottom: 0;
+}
+
+.videoPlayer-description a {
+  color: #065fd4;
+  text-decoration: none;
+}
+
+.videoPlayer-description a:hover {
+  text-decoration: underline;
+}
+
+.videoPlayer-description img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Video Comments Section */
+.videoContent-wrapper hr {
+  border: none;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 12px 0 4px 0;
+}
+
+.comment-wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 8px 0 12px 0;
+  width: 100%;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #cccccc;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #ffffff;
+  color: #0f0f0f;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comment-input:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.comment-input::placeholder {
+  color: #717171;
+}
+
+.comment-btn {
+  padding: 10px 20px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.comment-btn:hover {
+  background-color: #cc0000;
+}
+
+.comment-btn:active {
+  transform: scale(0.97);
+}
+
+.commentList-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.comment-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 12px 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease;
+}
+
+.comment-card:hover {
+  background-color: #fafafa;
+}
+
+.comment-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.comment-channel-pic {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e5e5;
+  flex-shrink: 0;
+}
+
+.comment-channel-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0f0f0f;
+  line-height: 1.2;
+}
+
+.comment-card>p {
+  font-size: 0.92rem;
+  color: #0f0f0f;
+  line-height: 1.4;
+  margin-left: 46px;
+  margin-top: 0;
+  word-break: break-word;
+}
+
+.videoSuggestion-wrapper {
+  width: 28%;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 16px;
+  height: fit-content;
+  color: #606060;
+}
+
+/* Media Queries */
+@media (max-width: 850px) {
+  .homeVideo-card {
+    flex-direction: column;
+  }
+
+  .thumbnail-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .vide-wrapper {
+    flex-direction: column;
+  }
+
+  .videoContent-wrapper,
+  .videoSuggestion-wrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar {
+    align-items: stretch;
+    padding-bottom: 8px;
+  }
+
+  .navLogo-wrapper,
+  .link-wrapper {
+    width: 100%;
+  }
+
+  .navLogo-wrapper {
+    justify-content: center;
+    padding-bottom: 4px;
+  }
+
+  .link-wrapper {
+    justify-content: center;
+    gap: 6px;
+    padding-top: 0;
+  }
+
+  .link-elements {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .authForm-wrapper {
+    align-items: flex-start;
+  }
+
+  .authForm,
+  .uploadForm {
+    width: 100% !important;
+  }
+}
