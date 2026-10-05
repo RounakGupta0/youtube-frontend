@@ -643,15 +643,20 @@ textarea.form-input {
   width: 100%;
 }
 
+textarea.comment-input,
 .comment-input {
   flex: 1;
-  padding: 10px 16px;
+  min-height: 70px;
+  padding: 12px 16px;
   border: 1px solid #cccccc;
-  border-radius: 20px;
+  border-radius: 12px;
   font-size: 0.95rem;
+  font-family: inherit;
   outline: none;
   background-color: #ffffff;
   color: #0f0f0f;
+  resize: vertical;
+  line-height: 1.4;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 

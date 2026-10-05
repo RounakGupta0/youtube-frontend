@@ -227,7 +227,7 @@ const Video = () => {
           />
           <hr />
           <div className='comment-wrapper'>
-            <input className='comment-input' onChange={(e) => setComment(e.target.value)} value={comment} placeholder='Comment' type="text" />
+            <textarea className='comment-input' onChange={(e) => setComment(e.target.value)} value={comment} placeholder='Comment' type="text" />
             <button className='comment-btn' onClick={addComment} type='button'>Add Comment</button>
           </div>
           <div className='commentList-wrapper'>
