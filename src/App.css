@@ -694,9 +694,10 @@ textarea.form-input {
 }
 
 .comment-card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
   background-color: #ffffff;
   border: 1px solid #e5e5e5;
   border-radius: 10px;
@@ -738,6 +739,61 @@ textarea.form-input {
   margin-left: 46px;
   margin-top: 0;
   word-break: break-word;
+}
+
+.comment-likeDislike-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 46px;
+  margin-top: 2px;
+}
+
+.comment-like-dislike {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.comment-edit-delete {
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-edit-btn,
+.comment-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.comment-edit-btn {
+  color: #065fd4;
+}
+
+.comment-edit-btn:hover {
+  background-color: #e8f0fe;
+}
+
+.comment-delete-btn {
+  color: #d93025;
+}
+
+.comment-delete-btn:hover {
+  background-color: #fce8e6;
 }
 
 .videoSuggestion-wrapper {

@@ -131,8 +131,12 @@ const Video = () => {
   const like = async () => {
     try {
       const token = localStorage.getItem('token')
+      var currentDislikestatus = isDisliked
       if (token) {
         setIsLiked(!isLiked)
+        if (isDisliked) {
+          setDislike(false)
+        }
         const likeRes = await axios.put(`${apiUrl}/video/like/` + id, {}, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -153,6 +157,7 @@ const Video = () => {
     catch (err) {
       console.log(err)
       setIsLiked(isLiked)
+      setDislike(currentDislikestatus)
       swal("Error!", "Something is wrong", "error");
     }
   }
@@ -160,8 +165,12 @@ const Video = () => {
   const dislike = async () => {
     try {
       const token = localStorage.getItem('token')
+      var currentLikeStatus = isLiked
       if (token) {
         setDislike(!isDisliked)
+        if (isLiked) {
+          setIsLiked(false)
+        }
         const DislikeRes = await axios.put(`${apiUrl}/video/dislike/` + id, {}, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -181,6 +190,7 @@ const Video = () => {
     catch (err) {
       console.log(err)
       setDislike(isDisliked)
+      setIsLiked(currentLikeStatus)
       swal("Error!", "Something is wrong", "error");
     }
   }
@@ -192,7 +202,7 @@ const Video = () => {
           <div className='videoContent'>
             <video className='video-player' controls src={video.videoUrl}></video>
             <h1 className='video-title'>{video.title}</h1>
-            <p>{video.views} views , {likeCount} likes</p>
+            <p>{video.views} views • {likeCount} likes</p>
           </div>
           <div className='channel-info--wrapper'>
             <div className='channel-info'>
@@ -233,6 +243,16 @@ const Video = () => {
                         <p className='comment-channel-name'>{comment.commentBy.channelName}</p>
                       </div>
                       <p>{comment.commentText}</p>
+                      <div className='comment-likeDislike-wrapper'>
+                        {<span className='comment-like-dislike'><i className="fa-regular fa-thumbs-up"></i></span>}
+                        {<span className='comment-like-dislike'><i className="fa-solid fa-thumbs-up"></i></span>}
+                        {<span className='comment-like-dislike'><i className="fa-regular fa-thumbs-down"></i></span>}
+                        {<span className='comment-like-dislike'><i className="fa-solid fa-thumbs-down"></i></span>}
+                      </div>
+                      <div className='comment-edit-delete'>
+                        <span className='comment-edit-btn'><i className="fa-solid fa-pen"></i></span>
+                        <span className='comment-delete-btn'><i className="fa-solid fa-trash"></i></span>
+                      </div>
                     </div>
                   )))
             }
