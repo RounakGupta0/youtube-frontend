@@ -13,6 +13,9 @@ const Video = () => {
   const [video, setVideo] = useState({})
   const [commentList, setCommentList] = useState([])
   const [comment, setComment] = useState('')
+  const [commentLikeCount, setCommentLikeCount] = useState(0)
+  // const [isLikedComment, setLikeComment] = useState(false)
+  // const [isDislikedComment, setDislikeComment] = useState(false)
   const [isSubscribe, setIsSubscribe] = useState(false)
   const [isLiked, setIsLiked] = useState(false)
   const [isDisliked, setDislike] = useState(false)
@@ -94,9 +97,21 @@ const Video = () => {
 
   const getCommentById = async () => {
     try {
-      const commentListRes = await axios.get(`${apiUrl}/comment/commentsByVideoId/` + id)
-      // console.log(commentListRes.data.comments.length)
-      setCommentList(commentListRes.data.comments.reverse())
+      const commentListRes = await axios.get(`${apiUrl}/comment/commentsByLikeStatus/` + id, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      console.log(commentListRes.data.comments.reverse())
+      setCommentList(commentListRes.data.comments)
+      commentListRes.data.comments.map(c => (setCommentLikeCount(c.likeCount)))
+      // commentList.map(comment => {
+      //   console.log(comment.commentText)
+      //   setLikeComment(comment.isLike)
+      //   setDislikeComment(comment.isDislike)
+      // })
+      // console.log(commentList[0])
+
     }
     catch (err) {
       console.log(err)
@@ -144,11 +159,11 @@ const Video = () => {
         })
         console.log(likeRes)
 
-        setIsLiked(likeRes.data.likeStatus)
+        // setIsLiked(likeRes.data.likeStatus)
         setLikeCount(likeRes.data.likeCount)
-        if (likeRes.data.likeStatus) {
-          setDislike(false)
-        }
+        // if (likeRes.data.likeStatus) {
+        //   setDislike(false)
+        // }
       }
       else {
         swal("Login Required", "Please log in to like!", "warning")
@@ -177,11 +192,11 @@ const Video = () => {
           }
         })
         console.log(DislikeRes)
-        setDislike(DislikeRes.data.dislikeStatus)
+        // setDislike(DislikeRes.data.dislikeStatus)
         setLikeCount(DislikeRes.data.likeCount)
-        if (DislikeRes.data.dislikeStatus) {
-          setIsLiked(false)
-        }
+        // if (DislikeRes.data.dislikeStatus) {
+        //   setIsLiked(false)
+        // }
       }
       else {
         swal("Login Required", "Please log in to dislike!", "warning")
@@ -191,6 +206,89 @@ const Video = () => {
       console.log(err)
       setDislike(isDisliked)
       setIsLiked(currentLikeStatus)
+      swal("Error!", "Something is wrong", "error");
+    }
+  }
+
+  const likeComment = async (commentId) => {
+    try {
+      setCommentList(comment => comment.map(c => (
+        c._id === commentId ?
+          {
+            ...c,
+            isLike: !c.isLike,
+            isDislike: false,
+          }
+          : c
+      )))
+      const likeRes = await axios.put(`${apiUrl}/comment/like/` + commentId, {}, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+      })
+      console.log(likeRes)
+      setCommentLikeCount(likeRes.data.likeCount)
+    }
+    catch (err) {
+      swal("Error!", "Something is wrong", "error")
+      console.log(err)
+    }
+  }
+
+  const dislikeComment = async (commentId) => {
+    try {
+      setCommentList(comment => comment.map(c => (
+        c._id === commentId ?
+          {
+            ...c,
+            isDislike: !c.isDislike,
+            isLike: false
+          }
+          : c
+      )))
+
+      const dislikeRes = await axios.put(`${apiUrl}/comment/dislike/` + commentId, {}, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        }
+      })
+      console.log(dislikeRes)
+      setCommentLikeCount(dislikeRes.data.likeCount)
+    }
+    catch (err) {
+      console.log(err)
+      swal("Error!", "Something is wrong", "error")
+      setCommentList(commentList)
+    }
+  }
+
+  const deleteCommentById = async (commentId) => {
+    try {
+      console.log('delete comment api call hua hai')
+      const deleteRes = await swal({
+        title: "Are you sure?",
+        text: "After deletion you can't recover this comment!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      // console.log(deleteRes)
+
+      if (deleteRes) {
+        const deletedRes = await axios.delete(`${apiUrl}/comment/byId/` + commentId, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          }
+        })
+        console.log(deletedRes)
+        swal("Comment Deleted!", {
+          icon: "success",
+        });
+        getCommentById()
+      }
+    }
+    catch (err) {
+      console.log(err)
       swal("Error!", "Something is wrong", "error");
     }
   }
@@ -244,14 +342,17 @@ const Video = () => {
                       </div>
                       <p>{comment.commentText}</p>
                       <div className='comment-likeDislike-wrapper'>
-                        {<span className='comment-like-dislike'><i className="fa-regular fa-thumbs-up"></i></span>}
-                        {<span className='comment-like-dislike'><i className="fa-solid fa-thumbs-up"></i></span>}
-                        {<span className='comment-like-dislike'><i className="fa-regular fa-thumbs-down"></i></span>}
-                        {<span className='comment-like-dislike'><i className="fa-solid fa-thumbs-down"></i></span>}
+                        <div className='comment-like-wrapper'>
+                          {!comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-regular fa-thumbs-up"></i></span>}
+                          {comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-solid fa-thumbs-up"></i></span>}
+                          <p>{commentLikeCount}</p>
+                        </div>
+                        {!comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-regular fa-thumbs-down"></i></span>}
+                        {comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-solid fa-thumbs-down"></i></span>}
                       </div>
                       <div className='comment-edit-delete'>
-                        <span className='comment-edit-btn'><i className="fa-solid fa-pen"></i></span>
-                        <span className='comment-delete-btn'><i className="fa-solid fa-trash"></i></span>
+                        {(comment.commentBy._id == localStorage.getItem('channelId')) && <span onClick={() => editCommentById(comment._id)} className='comment-edit-btn'><i className="fa-solid fa-pen"></i></span>}
+                        {((comment.commentBy._id == localStorage.getItem('channelId')) || (video.uploadedBy._id == localStorage.getItem('channelId'))) && <span onClick={() => deleteCommentById(comment._id)} className='comment-delete-btn'><i className="fa-solid fa-trash"></i></span>}
                       </div>
                     </div>
                   )))
