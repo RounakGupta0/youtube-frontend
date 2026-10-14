@@ -392,7 +392,7 @@ const Video = () => {
                           <div className='comment-like-wrapper'>
                             {!comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-regular fa-thumbs-up"></i></span>}
                             {comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-solid fa-thumbs-up"></i></span>}
-                            <p>{commentLikeCount}</p>
+                            <p>{comment.likeCount}</p>
                           </div>
                           {!comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-regular fa-thumbs-down"></i></span>}
                           {comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-solid fa-thumbs-down"></i></span>}
