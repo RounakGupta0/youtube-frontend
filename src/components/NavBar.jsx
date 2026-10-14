@@ -26,7 +26,7 @@ const NavBar = () => {
                     <Link className='link-elements' to='/home'>Home</Link>
                     {!isLogin &&<Link className='link-elements' to='/login'>Login</Link>}
                     {isLogin && <Link className='link-elements' to='/add-video'>Upload Video</Link>}
-                    {isLogin && <Link className='link-elements' to='/profile'>{localStorage.getItem('channelName')}</Link>}
+                    {isLogin && <Link className='link-elements' to={'/profile/'+ localStorage.getItem('channelId')} >{localStorage.getItem('channelName')}</Link>}
                     {isLogin && <Link className='logout link-elements' onClick={logout} to='/login'><span ><i className="fa-solid fa-right-from-bracket"></i></span>Logout</Link>}
                 </div>
             </div>

@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "axios": "^1.19.0",
+    "bootstrap": "^5.3.8",
     "react": "^19.2.8",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.8",
     "react-quill-new": "^3.8.3",
     "react-router-dom": "^7.18.2",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.26.25"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

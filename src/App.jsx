@@ -21,10 +21,10 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup/>} />
           <Route path='/add-video' element={<AddVideo />} />
-          <Route path='/edit-video' element={<EditVideo />} />
+          <Route path='/edit-video/:videoId' element={<EditVideo />} />
           <Route path='/channel-video/:id' element={<ChannelVideo />} />
           <Route path='/video/:id' element={<Video />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile/:channelId' element={<Profile />} />
         </Route>
       </Routes>
     </div>

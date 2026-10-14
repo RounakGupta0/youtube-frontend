@@ -1,7 +1,3 @@
-/* ==========================================================================
-   SBS TUBE - LIGHT THEME SEQUENTIAL CSS
-   ========================================================================== */
-
 * {
   padding: 0px;
   margin: 0px;
@@ -22,7 +18,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Navbar Component */
 .navbar {
   min-height: 10vh;
   width: 100%;
@@ -94,18 +89,25 @@ body {
   border-radius: 6px;
 }
 
-/* Main Content Body */
 .content-body {
   min-height: calc(100vh - 10vh);
   width: 100%;
 }
 
-/* Home Page Sequential Video Feed */
 .home-wrapper {
   min-height: calc(100vh - 10vh);
   width: 100%;
   background-color: #f9f9f9;
   padding: 24px 16px;
+}
+
+.home-loader{
+  justify-content: center !important;
+  height: 85vh !important;
+}
+
+.home-loader span{
+  font-size: 50px;
 }
 
 .homeVideo-wrapper {
@@ -254,7 +256,6 @@ body {
   color: #212121;
 }
 
-/* Authentication Forms (Login / Signup) */
 .authForm-wrapper {
   min-height: calc(100vh - 10vh);
   width: 100%;
@@ -409,6 +410,18 @@ textarea.form-input {
 .thumbnail-uploader button:hover {
   background-color: #e2e2e2;
   transform: scale(1.02);
+}
+
+.editVideo-loader{
+  height: 85vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editVideo-loader span{
+  font-size: 40px;
 }
 
 .thumbnail-uploader {
@@ -845,6 +858,209 @@ textarea.comment-input,
   color: #606060;
 }
 
+.channel-page-wrapper {
+  width: 100%;
+  max-width: 1350px;
+  min-height: calc(100vh - 10vh);
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.channel-details-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 290px;
+  height: 32vh;
+  max-height: 320px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding: 28px 36px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.channel-details-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.4) 45%,
+      rgba(0, 0, 0, 0.82) 100%);
+  z-index: 1;
+}
+
+.channel-details-profilePic {
+  position: relative;
+  z-index: 2;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.channel-details-info {
+  position: relative;
+  z-index: 2;
+  margin-left: 24px;
+  margin-bottom: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  color: #ffffff;
+}
+
+.channel-detailsInfo-name {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+}
+
+.channel-details-info-subCount {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75);
+}
+
+.channel-page-wrapper>div:not(.channel-details-wrapper):not(.channel-page-videos-wrapper) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  color: #606060;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.channel-page-videos-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  height: auto;
+}
+
+.channel-videos-card {
+  width: 100%;
+  min-height: 195px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px 18px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.channel-videos-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border-color: #d0d0d0;
+}
+
+.channel-videos-card img,
+.channel-videoCard-thumbnail {
+  width: 315px;
+  min-width: 260px;
+  max-width: 360px;
+  height: 175px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background-color: #eaeaea;
+}
+
+.channel-videoCard-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.channel-videoCard-title {
+  font-size: 1.30rem;
+  font-weight: 600;
+  color: #0f0f0f;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.channel-videoCard-description {
+  font-size: 1rem;
+  color: #606060;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.channel-videoCard-description * {
+  font-size: inherit !important;
+  font-weight: normal !important;
+  color: inherit !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline !important;
+  word-break: break-word !important;
+}
+
+.channel-videoCard-description img,
+.channel-videoCard-description video,
+.channel-videoCard-description iframe {
+  display: none !important;
+}
+
+.loader{
+  height: 30px;
+  width: 30px;
+}
+
+.profile-subscribe-btn-wrapper{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.profile-subscribe-btn-wrapper:hover{
+  transform: scale(1.02);
+}
+
 /* Media Queries */
 @media (max-width: 850px) {
   .homeVideo-card {
@@ -863,6 +1079,40 @@ textarea.comment-input,
   .videoContent-wrapper,
   .videoSuggestion-wrapper {
     width: 100%;
+  }
+
+  /* Channel / Profile Page - Tablet */
+  .channel-page-wrapper {
+    padding: 20px 16px;
+  }
+
+  .channel-details-wrapper {
+    min-height: 240px;
+    height: 28vh;
+    max-height: 260px;
+    padding: 20px 24px;
+  }
+
+  .channel-details-profilePic {
+    width: 105px;
+    height: 105px;
+  }
+
+  .channel-detailsInfo-name {
+    font-size: 1.5rem;
+  }
+
+  .channel-videos-card {
+    min-height: auto;
+    gap: 16px;
+    padding: 14px;
+  }
+
+  .channel-videos-card img,
+  .channel-videoCard-thumbnail {
+    width: 250px;
+    height: 140px;
+    min-width: 200px;
   }
 }
 
@@ -900,5 +1150,56 @@ textarea.comment-input,
   .authForm,
   .uploadForm {
     width: 100% !important;
+  }
+
+  .channel-details-wrapper {
+    min-height: 240px;
+    height: auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 16px;
+    gap: 12px;
+  }
+
+  .channel-details-wrapper::before {
+    background: linear-gradient(180deg,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.75) 100%);
+  }
+
+  .channel-details-profilePic {
+    width: 90px;
+    height: 90px;
+  }
+
+  .channel-details-info {
+    margin-left: 0;
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  .channel-detailsInfo-name {
+    font-size: 1.35rem;
+  }
+
+  .channel-details-info-subCount {
+    font-size: 0.9rem;
+  }
+
+  .channel-videos-card {
+    flex-direction: column;
+    min-height: auto;
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .channel-videos-card img,
+  .channel-videoCard-thumbnail {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
   }
 }

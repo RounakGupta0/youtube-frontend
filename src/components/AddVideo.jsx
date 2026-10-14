@@ -39,7 +39,7 @@ const AddVideo = () => {
       )
       setLoader(false)
       console.log(uploadedvideo)
-
+      clearAll()
     }
     catch (err) {
       console.log(err)
@@ -58,6 +58,16 @@ const AddVideo = () => {
     setThumbnail(e.target.files[0])
     const thumbnailUrl = URL.createObjectURL(e.target.files[0])
     setThumbnailUrl(thumbnailUrl)
+  }
+
+  const clearAll = () => {
+    setThumbnail(null)
+    setTags('')
+    setThumbnailUrl('')
+    setTitle('')
+    setVideo(null)
+    setVideoName('')
+    setDescription('')
   }
 
   return (

@@ -8,6 +8,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 const Home = () => {
 
   const [videos, setVideos] = useState([])
+  const [loader,setLoading] = useState(false)
 
   useEffect(() => {
     videoHandler()
@@ -17,12 +18,15 @@ const Home = () => {
 
   const videoHandler = async () => {
     try {
+      setLoading(true)
       const allVidoes = await axios.get(`${apiUrl}/video/allVideo`)
       setVideos(allVidoes.data.videos.reverse())
       console.log(allVidoes.data.videos)
+      setLoading(false)
     }
     catch (err) {
       console.log(err)
+      setLoading(false)
     }
   }
 
@@ -67,7 +71,11 @@ const Home = () => {
   }
 
   return (
-    <div className='home-wrapper'>
+    <div className='home-wrapper'>{
+      loader ?
+      <div className='homeVideo-wrapper home-loader'>
+        <span ><i className="fa-solid fa-spinner fa-spin-pulse"></i></span>
+      </div> :
       <div className='homeVideo-wrapper'>
         {
           videos.map((video) => (
@@ -93,7 +101,7 @@ const Home = () => {
             </div>
           ))
         }
-      </div>
+      </div>}
     </div>
   )
 }

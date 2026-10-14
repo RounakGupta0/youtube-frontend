@@ -1,8 +1,9 @@
 import axios from 'axios'
 import profie from '../assets/profilePic.webp'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import swal from 'sweetalert'
+import swal2 from 'sweetalert2'
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -21,14 +22,19 @@ const Video = () => {
   const [isDisliked, setDislike] = useState(false)
   const [likeCount, setLikeCount] = useState(0)
   const [subsriberCount, setsubscriberCount] = useState(0)
+  const [CommentEditing, setCommentEditing] = useState('')
+  const [pageLoader, setpageLoading] = useState(false)
 
   useEffect(() => {
     getVideoById()
     getCommentById()
   }, [])
 
+  const navigate = useNavigate()
+
   const getVideoById = async () => {
     try {
+      setpageLoading(true)
       const token = localStorage.getItem('token')
       let d = {}
       if (token) {
@@ -51,10 +57,12 @@ const Video = () => {
       setDislike(d.data.dislikeStatus)
       setLikeCount(d.data.video.likeCount)
       setsubscriberCount(d.data.video.uploadedBy.subscriberCount)
+      setpageLoading(false)
     }
     catch (err) {
       console.log(err)
       swal("Error!", "Something Went Wrong...", "error");
+      setpageLoading(false)
     }
   }
 
@@ -293,79 +301,119 @@ const Video = () => {
     }
   }
 
-  return (
-    <div className='vide-wrapper'>
-      {
-        video.videoUrl && <div className='videoContent-wrapper'>
-          <div className='videoContent'>
-            <video className='video-player' controls src={video.videoUrl}></video>
-            <h1 className='video-title'>{video.title}</h1>
-            <p>{video.views} views • {likeCount} likes</p>
-          </div>
-          <div className='channel-info--wrapper'>
-            <div className='channel-info'>
-              <img className='channel-pic' src={video.uploadedBy.profilePicUrl ? video.uploadedBy.profilePicUrl : profie} alt="" />
-              <div className='channel-details'>
-                <p className='channelInfo-name'>{video.uploadedBy.channelName}</p>
-                <p className='channelInfo-subCount'>{subsriberCount} Subscribers</p>
+  const editCommentById = async (commentId) => {
+    try {
+      const popupRes = await swal2.fire({
+        input: "textarea",
+        inputLabel: "Edit Comment",
+        inputPlaceholder: "Type your comment here...",
+        inputAttributes: { "aria-label": "Type your comment here" },
+        showCancelButton: true,
+        confirmButtonText: 'Edit',
+        confirmButtonColor: '#065fd4',
+        cancelButtonColor: '#d93025',
+        confirmButtonAriaLabel: '20px'
+      });
+
+      if (popupRes.isConfirmed) {
+        console.log(popupRes.value)
+        const editRes = await axios.put(`${apiUrl}/comment/editComment/` + commentId, { commentText: popupRes.value }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          }
+        })
+        console.log(editRes)
+        getCommentById()
+      }
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+  if (pageLoader) {
+    return (
+    <div className='editVideo-loader'>
+      <span ><i className="fa-solid fa-spinner fa-spin-pulse"></i></span>
+    </div>
+  )}
+  else {
+    return (
+      <div className='vide-wrapper'>
+        {
+          video.videoUrl && <div className='videoContent-wrapper'>
+            <div className='videoContent'>
+              <video className='video-player' controls src={video.videoUrl}></video>
+              <h1 className='video-title'>{video.title}</h1>
+              <p>{video.views} views • {likeCount} likes</p>
+            </div>
+            <div className='channel-info--wrapper'>
+              <div onClick={() => navigate('/profile/' + video.uploadedBy._id)} className='channel-info'>
+                <img className='channel-pic' src={video.uploadedBy.profilePicUrl ? video.uploadedBy.profilePicUrl : profie} alt="" />
+                <div className='channel-details'>
+                  <p className='channelInfo-name'>{video.uploadedBy.channelName}</p>
+                  <p className='channelInfo-subCount'>{subsriberCount} Subscribers</p>
+                </div>
+              </div>
+              <div className='like-dislike-wrapper'>
+                {!isLiked && <span onClick={like} className='like-dislike'><i className="fa-regular fa-thumbs-up"></i></span>}
+                {isLiked && <span onClick={like} className='like-dislike'><i className="fa-solid fa-thumbs-up"></i></span>}
+                {!isDisliked && <span onClick={dislike} className='like-dislike'><i className="fa-regular fa-thumbs-down"></i></span>}
+                {isDisliked && <span onClick={dislike} className='like-dislike'><i className="fa-solid fa-thumbs-down"></i></span>}
+                {
+                  (video.uploadedBy._id != localStorage.getItem('channelId')) && 
+                <button onClick={subscribe} className={isSubscribe ? 'subscribe-btn unsubscribe-btn' : 'subscribe-btn'} >{isSubscribe ? 'Unsubscribe' : 'Subscribe'}</button>
+                }
               </div>
             </div>
-            <div className='like-dislike-wrapper'>
-              {!isLiked && <span onClick={like} className='like-dislike'><i className="fa-regular fa-thumbs-up"></i></span>}
-              {isLiked && <span onClick={like} className='like-dislike'><i className="fa-solid fa-thumbs-up"></i></span>}
-              {!isDisliked && <span onClick={dislike} className='like-dislike'><i className="fa-regular fa-thumbs-down"></i></span>}
-              {isDisliked && <span onClick={dislike} className='like-dislike'><i className="fa-solid fa-thumbs-down"></i></span>}
-              <button onClick={subscribe} className={isSubscribe ? 'subscribe-btn unsubscribe-btn' : 'subscribe-btn'} >{isSubscribe ? 'Unsubscribe' : 'Subscribe'}</button>
+            <div className='videoPlayer-description'
+              dangerouslySetInnerHTML={{
+                __html: video.description
+              }}
+            />
+            <hr />
+            <div className='comment-wrapper'>
+              <textarea className='comment-input' onChange={(e) => setComment(e.target.value)} value={comment} placeholder='Comment' type="text" />
+              <button className='comment-btn' onClick={addComment} type='button'>Add Comment</button>
             </div>
-          </div>
-          <div className='videoPlayer-description'
-            dangerouslySetInnerHTML={{
-              __html: video.description
-            }}
-          />
-          <hr />
-          <div className='comment-wrapper'>
-            <textarea className='comment-input' onChange={(e) => setComment(e.target.value)} value={comment} placeholder='Comment' type="text" />
-            <button className='comment-btn' onClick={addComment} type='button'>Add Comment</button>
-          </div>
-          <div className='commentList-wrapper'>
-            {
-              !commentList || commentList.length == 0 ?
-                <div>
-                  <p>No comments till now</p>
-                </div> : (
-                  commentList.map((comment) => (
-                    <div className='comment-card' key={comment._id}>
-                      <div className='comment-user-info'>
-                        <img className='comment-channel-pic' src={comment.commentBy.profilePicUrl ? comment.commentBy.profilePicUrl : profie} alt="" />
-                        <p className='comment-channel-name'>{comment.commentBy.channelName}</p>
-                      </div>
-                      <p>{comment.commentText}</p>
-                      <div className='comment-likeDislike-wrapper'>
-                        <div className='comment-like-wrapper'>
-                          {!comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-regular fa-thumbs-up"></i></span>}
-                          {comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-solid fa-thumbs-up"></i></span>}
-                          <p>{commentLikeCount}</p>
+            <div className='commentList-wrapper'>
+              {
+                !commentList || commentList.length == 0 ?
+                  <div>
+                    <p>No comments till now</p>
+                  </div> : (
+                    commentList.map((comment) => (
+                      <div className='comment-card' key={comment._id}>
+                        <div className='comment-user-info'>
+                          <img className='comment-channel-pic' src={comment.commentBy.profilePicUrl ? comment.commentBy.profilePicUrl : profie} alt="" />
+                          <p className='comment-channel-name'>{comment.commentBy.channelName}</p>
                         </div>
-                        {!comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-regular fa-thumbs-down"></i></span>}
-                        {comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-solid fa-thumbs-down"></i></span>}
+                        <p>{comment.commentText}</p>
+                        <div className='comment-likeDislike-wrapper'>
+                          <div className='comment-like-wrapper'>
+                            {!comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-regular fa-thumbs-up"></i></span>}
+                            {comment.isLike && <span className='comment-like-dislike' onClick={() => likeComment(comment._id)}><i className="fa-solid fa-thumbs-up"></i></span>}
+                            <p>{commentLikeCount}</p>
+                          </div>
+                          {!comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-regular fa-thumbs-down"></i></span>}
+                          {comment.isDislike && <span className='comment-like-dislike' onClick={() => dislikeComment(comment._id)}><i className="fa-solid fa-thumbs-down"></i></span>}
+                        </div>
+                        <div className='comment-edit-delete'>
+                          {(comment.commentBy._id == localStorage.getItem('channelId')) && <span onClick={() => editCommentById(comment._id)} className='comment-edit-btn'><i className="fa-solid fa-pen"></i></span>}
+                          {((comment.commentBy._id == localStorage.getItem('channelId')) || (video.uploadedBy._id == localStorage.getItem('channelId'))) && <span onClick={() => deleteCommentById(comment._id)} className='comment-delete-btn'><i className="fa-solid fa-trash"></i></span>}
+                        </div>
                       </div>
-                      <div className='comment-edit-delete'>
-                        {(comment.commentBy._id == localStorage.getItem('channelId')) && <span onClick={() => editCommentById(comment._id)} className='comment-edit-btn'><i className="fa-solid fa-pen"></i></span>}
-                        {((comment.commentBy._id == localStorage.getItem('channelId')) || (video.uploadedBy._id == localStorage.getItem('channelId'))) && <span onClick={() => deleteCommentById(comment._id)} className='comment-delete-btn'><i className="fa-solid fa-trash"></i></span>}
-                      </div>
-                    </div>
-                  )))
-            }
-          </div>
+                    )))
+              }
+            </div>
 
+          </div>
+        }
+        <div className='videoSuggestion-wrapper'>
+          <p>video suggestion</p>
         </div>
-      }
-      <div className='videoSuggestion-wrapper'>
-        <p>video suggestion</p>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Video
