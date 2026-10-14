@@ -236,6 +236,7 @@ const Video = () => {
       })
       console.log(likeRes)
       setCommentLikeCount(likeRes.data.likeCount)
+      getCommentById()
     }
     catch (err) {
       swal("Error!", "Something is wrong", "error")
@@ -261,7 +262,8 @@ const Video = () => {
         }
       })
       console.log(dislikeRes)
-      setCommentLikeCount(dislikeRes.data.likeCount)
+      // setCommentLikeCount(dislikeRes.data.likeCount)
+      getCommentById()
     }
     catch (err) {
       console.log(err)
