@@ -6,10 +6,10 @@ import NavBar from './components/NavBar'
 import Login from './components/Login'
 import AddVideo from './components/AddVideo'
 import EditVideo from './components/EditVideo'
-import ChannelVideo from './components/ChannelVideo'
 import Video from './components/Video'
 import Profile from './components/Profile'
-import Signup from './components/Signup'
+import Signup from './components/SIgnup'
+import EditProfile from './components/EditProfile'
 
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
           <Route path='/signup' element={<Signup/>} />
           <Route path='/add-video' element={<AddVideo />} />
           <Route path='/edit-video/:videoId' element={<EditVideo />} />
-          <Route path='/channel-video/:id' element={<ChannelVideo />} />
+          <Route path='/edit-profile/:channelId' element={<EditProfile/>} />
           <Route path='/video/:id' element={<Video />} />
           <Route path='/profile/:channelId' element={<Profile />} />
         </Route>

@@ -170,6 +170,9 @@ const Profile = () => {
               <button onClick={subscribe} className={isSubscribe ? 'subscribe-btn unsubscribe-btn' : 'subscribe-btn'} >{isSubscribe ? 'Unsubscribe' : 'Subscribe'}</button>
             </div>
           }
+          {
+            (channelId == localStorage.getItem('channelId')) && <p onClick={()=>navigate('/edit-profile/'+ localStorage.getItem('channelId'))}><span><i className="fa-solid fa-user-pen profile-edit-btn"></i></span></p>
+          }
         </div>
       }
       {channelDeails.channelName && channelVideos.length == 0 ?
@@ -193,7 +196,7 @@ const Profile = () => {
                 {
                   (channelId == localStorage.getItem('channelId')) &&
                   (
-                    isDeletingVideo ? <span className='loader'><i class="fa-solid fa-spinner fa-spin-pulse"></i></span> :
+                    isDeletingVideo ? <span className='loader'><i className="fa-solid fa-spinner fa-spin-pulse"></i></span> :
                       <div >
                         <span onClick={() => navigate('/edit-video/' + video._id)} className='comment-edit-btn'><i className="fa-solid fa-pen"></i></span>
                         <span onClick={() => deleteVideoByVideoId(video._id)} className='comment-delete-btn'><i className="fa-solid fa-trash"></i></span>
