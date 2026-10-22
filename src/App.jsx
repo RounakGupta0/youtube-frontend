@@ -9,7 +9,7 @@ import EditVideo from './components/EditVideo'
 import Video from './components/Video'
 import Profile from './components/Profile'
 import EditProfile from './components/EditProfile'
-import Signup from './components/SIgnup'
+import Signup from './components/Signup'
 
 const App = () => {
   return (
