@@ -63,6 +63,7 @@ const EditProfile = () => {
                 }
             })
             console.log(coverPicUploadRes)
+            swal("Success!", "Cover Pic Uploaded Successfully", "success");
         }
         catch (err) {
             console.log(err)
@@ -90,9 +91,9 @@ const EditProfile = () => {
                     channelName: channelName,
                     description: description,
                     password: enteredPassword,
-                    newPassword : newPassword
+                    newPassword: newPassword
                 }
-                const response = await axios.put(`${apiUrl}/user/updateProfile`,changesObj , {
+                const response = await axios.put(`${apiUrl}/user/updateProfile`, changesObj, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -106,12 +107,10 @@ const EditProfile = () => {
         }
         catch (err) {
             console.log(err)
-            if (err.response.data.msg == "email and password doesn't match")
-            {
+            if (err.response.data.msg == "email and password doesn't match") {
                 swal("Error!", "Password doesnt match", "error");
             }
-            else
-            {
+            else {
                 swal("Error!", "Something Went Wrong...", "error");
             }
         }
@@ -129,7 +128,7 @@ const EditProfile = () => {
             }
         })
         console.log(profilePicUploadRes)
-        swal("Good job!", "You clicked the button!", "success");
+        swal("Success!", "Profile Pic Uploaded Successfully", "success");
     }
 
     return (
@@ -142,13 +141,13 @@ const EditProfile = () => {
                     <form onSubmit={sumbitHandler} className='edit-profile-Form'>
                         <div className='edit-profile-Form-coverPic-wrapper'>
                             <input onChange={coverPicHandler} type="file" name="coverPic" id='edit-profile-coverPic' />
-                            <button className='profile-coverPic-editBtn' onClick={() => document.getElementById('edit-profile-coverPic').click()}><span><i className="fa-solid fa-pen-to-square "></i></span>Edit CoverPic</button>
+                            <button type='button' className='profile-coverPic-editBtn' onClick={() => document.getElementById('edit-profile-coverPic').click()}><span><i className="fa-solid fa-pen-to-square "></i></span>Edit CoverPic</button>
                             <img className='edit-profile-Form-coverPicUrl' src={coverPicUrl ? coverPicUrl : samepleCoverPic} alt="coverPic" />
                         </div>
                         <div className='edit-profile-form-profileDetails-wrapper'>
                             <div className='edit-profile-form-profilePic-wrapper'>
                                 <input onChange={profilePicHandler} type="file" name="profilePic" id='edit-profile-profilePic' />
-                                <button className='profile-profilePic-editBtn' onClick={() => document.getElementById('edit-profile-profilePic').click()}><span><i className="fa-solid fa-pen-to-square "></i></span>Edit profilePic</button>
+                                <button type='button' className='profile-profilePic-editBtn' onClick={() => document.getElementById('edit-profile-profilePic').click()}><span><i className="fa-solid fa-pen-to-square "></i></span>Edit profilePic</button>
                                 <img className='edit-profile-Form-profilePicUrl' src={profilePicUrl ? profilePicUrl : samepleProfile} alt="profilePic" />
                             </div>
                             <div className='edit-profile-from-profileDetails-wrapper'>
