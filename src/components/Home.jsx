@@ -91,7 +91,7 @@ const Home = () => {
                   }}
                 />
                 <div className='homeVideoCardContent-profile'>
-                  <img src={video.uploadedBy.profilePicUrl == "" ? defaultPic : video.uploadedBy.profilePic} alt="" />
+                  <img src={video.uploadedBy.profilePicUrl ? video.uploadedBy.profilePicUrl : defaultPic} alt="" />
                   <p className='homeVideoCard-channelName'>{video.uploadedBy.channelName}</p>
                 </div>
                 <p>{uploadedTime(video.createdAt)}</p>

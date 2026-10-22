@@ -31,6 +31,7 @@ const Profile = () => {
       setchannelDetails(profileDetails.data.channel)
       setsubscriberCount(profileDetails.data.channel.subscriberCount)
       console.log(profileDetails.data.videos)
+      console.log(profileDetails.data.channel)
       setChannelvideos(profileDetails.data.videos)
       setpageLoading(false)
     }
@@ -158,8 +159,8 @@ const Profile = () => {
         </div>
       }
       {channelDeails.channelName &&
-        <div className='channel-details-wrapper' style={{ backgroundImage: `url(${channelDeails.coverPic ? channelDeails.coverPic : coverPic})` }}>
-          <img className='channel-details-profilePic' src={channelDeails.profilePic ? channelDeails.profilePic : profile} alt="profilePic" />
+        <div className='channel-details-wrapper' style={{ backgroundImage: `url(${channelDeails.coverPicUrl ? channelDeails.coverPicUrl : coverPic})` }}>
+          <img className='channel-details-profilePic' src={channelDeails.profilePicUrl ? channelDeails.profilePicUrl : profile} alt="profilePic" />
           <div className='channel-details-info'>
             <h3 className='channel-detailsInfo-name'>{channelDeails.channelName}</h3>
             <p className='channel-details-info-subCount'>{subscriberCount} Subscribers</p>
