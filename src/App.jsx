@@ -8,8 +8,8 @@ import AddVideo from './components/AddVideo'
 import EditVideo from './components/EditVideo'
 import Video from './components/Video'
 import Profile from './components/Profile'
-import Signup from './components/SIgnup'
 import EditProfile from './components/EditProfile'
+import Signup from './components/SIgnup'
 
 const App = () => {
   return (
