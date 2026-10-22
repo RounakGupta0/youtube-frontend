@@ -38,7 +38,7 @@ const AddVideo = () => {
       }
       )
       setLoader(false)
-      console.log(uploadedvideo)
+      // console.log(uploadedvideo)
       clearAll()
     }
     catch (err) {
